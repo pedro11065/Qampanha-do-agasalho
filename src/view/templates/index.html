@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qampanha do Agasalho - Qlik</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased">
+
+    <!-- Topbar / Header -->
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <!-- Logo Simbolizado da Qlik com elemento de inverno -->
+                <div class="bg-emerald-500 text-white p-2 rounded-lg font-black text-xl tracking-tighter shadow-sm">
+                    Q<span class="text-emerald-200 font-light">lik</span>
+                </div>
+                <span class="text-slate-300 font-light text-xl">|</span>
+                <span class="text-sm font-semibold uppercase tracking-wider text-slate-500">Social Responsibility</span>
+            </div>
+            <a href="#onde-doar" class="bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-sm px-5 py-2.5 rounded-full transition shadow-xs">
+                Onde Doar?
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section (Banner Principal) -->
+    <section class="relative bg-linear-to-br from-slate-900 via-indigo-950 to-slate-900 text-white py-20 px-6 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <span class="bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-emerald-500/30">
+                Ação Social 2026
+            </span>
+            <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mt-6 mb-4">
+                Qampanha do <span class="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">Agasalho</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+                Mais do que analisar dados, nós transformamos realidades. Junte-se à Qlik para aquecer o inverno de quem mais precisa.
+            </p>
+            <div class="mt-10 flex flex-wrap justify-center gap-4">
+                <a href="#metas" class="bg-white text-slate-900 hover:bg-slate-100 font-semibold px-6 py-3 rounded-lg transition shadow-md">
+                    Ver Nosso Impacto
+                </a>
+                <a href="#como-funciona" class="border border-slate-700 hover:bg-white/5 font-medium px-6 py-3 rounded-lg transition">
+                    O que podemos doar?
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Impacto / Termômetro de Metas -->
+    <section id="metas" class="max-w-5xl mx-auto px-6 py-16">
+        <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-xl -mt-24 relative z-20">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                
+                <!-- Info Meta -->
+                <div class="space-y-2">
+                    <h3 class="text-xl font-bold text-slate-900">Nosso Termômetro</h3>
+                    <p class="text-sm text-slate-500">Acompanhamento em tempo real das arrecadações internas de todas as nossas filiais e hubs.</p>
+                    <div class="pt-2 flex items-center space-x-2 text-emerald-600 font-bold text-2xl">
+                        <span>740</span>
+                        <span class="text-sm font-medium text-slate-400">/ 1.000 peças</span>
+                    </div>
+                </div>
+
+                <!-- Barra do Termômetro -->
+                <div class="md:col-span-2 space-y-3">
+                    <div class="flex justify-between text-xs font-semibold text-slate-500">
+                        <span>Progresso Atual (74%)</span>
+                        <span class="text-emerald-600">Meta: 1.000 Peças</span>
+                    </div>
+                    <!-- Track da Barra -->
+                    <div class="w-full bg-slate-100 rounded-full h-5 p-1 overflow-hidden shadow-inner">
+                        <!-- Barra de Progresso Ativa -->
+                        <div class="bg-linear-to-r from-emerald-400 to-emerald-600 h-full rounded-full transition-all duration-1000 relative" style="width: 74%;">
+                            <span class="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-white font-extrabold">74%</span>
+                        </div>
+                    </div>
+                    <p class="text-xs italic text-slate-400 text-right">Última atualização: Hoje, às 14:00.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: Diretrizes de Doação -->
+    <section id="como-funciona" class="max-w-5xl mx-auto px-6 py-12">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-slate-900">O que estamos arrecadando?</h2>
+            <p class="text-slate-500 mt-2">Garantir a qualidade das doações é um ato de respeito e dignidade.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Card 1 -->
+            <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-xs hover:shadow-md transition">
+                <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                    <i class="fa-solid fa-shirt"></i>
+                </div>
+                <h4 class="font-bold text-slate-900 mb-2">Roupas de Frio</h4>
+                <p class="text-sm text-slate-600 leading-relaxed">Casacos, jaquetas, moletons, suéteres e calças compridas. Itens infantis e adultos de todos os tamanhos.</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-xs hover:shadow-md transition">
+                <div class="w-12 h-12 bg-teal-50 text-teal-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                    <i class="fa-solid fa-box-tissue"></i>
+                </div>
+                <h4 class="font-bold text-slate-900 mb-2">Cobertores e Mantas</h4>
+                <p class="text-sm text-slate-600 leading-relaxed">Cobertores, edredons, mantas térmicas e sacos de dormir limpos e prontos para distribuição direta.</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-xs hover:shadow-md transition">
+                <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                    <i class="fa-solid fa-mitten"></i>
+                </div>
+                <h4 class="font-bold text-slate-900 mb-2">Acessórios</h4>
+                <p class="text-sm text-slate-600 leading-relaxed">Toucas, luvas, meias (apenas pares novos ou perfeitamente conservados) e cachecóis.</p>
+            </div>
+        </div>
+
+        <!-- Alerta de qualidade -->
+        <div class="mt-8 bg-amber-50 border border-amber-200/60 rounded-xl p-4 flex items-start space-x-3">
+            <i class="fa-solid fa-circle-info text-amber-600 mt-0.5 text-lg"></i>
+            <div class="text-sm text-amber-800">
+                <span class="font-bold">Nota de Triagem:</span> Pedimos a gentileza de higienizar as peças antes de realizar a entrega nos pontos de coleta. Roupas rasgadas, sem botões ou manchadas inviabilizam a distribuição rápida.
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: Onde Doar -->
+    <section id="onde-doar" class="bg-slate-900 text-white py-16 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider">Logística Solidária</span>
+                    <h2 class="text-3xl font-bold mt-2 mb-4">Pontos de Coleta Oficiais</h2>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Você pode depositar suas doações diretamente nas caixas organizadoras sinalizadas com a identidade da <span class="text-white font-medium">Qampanha do Agasalho</span> localizadas nas recepções principais.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fa-solid fa-location-dot text-emerald-400 mt-1"></i>
+                            <div>
+                                <h5 class="font-semibold text-sm">Escritório Central (São Paulo)</h5>
+                                <p class="text-xs text-slate-400">Av. das Nações Unidas, Recepção do Bloco B</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa-solid fa-location-dot text-emerald-400 mt-1"></i>
+                            <div>
+                                <h5 class="font-semibold text-sm">Hub de Engenharia & Suporte</h5>
+                                <p class="text-xs text-slate-400">Área de Convivência / Café do 4º Andar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Box de Engajamento Interno -->
+                <div class="bg-slate-800/60 border border-slate-800 p-8 rounded-2xl text-center shadow-lg">
+                    <i class="fa-solid fa-heart-circle-check text-4xl text-emerald-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Quer organizar um sub-ponto?</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                        Se a sua equipe ou squad quer centralizar caixas em outros andares ou escritórios regionais, entre em contato com o comitê de RH para retirar o kit de identificação oficial.
+                    </p>
+                    <a href="mailto:csr@qlik.com" class="inline-block w-full bg-slate-700 hover:bg-slate-600 text-white font-medium text-sm py-3 rounded-lg transition">
+                        Contatar Comitê CSR
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="bg-slate-950 text-slate-600 text-xs py-8 text-center border-t border-slate-900">
+        <p>&copy; 2026 Qlik Corporate Social Responsibility. Conectando dados, pessoas e solidariedade.</p>
+    </footer>
+
+</body>
+</html>

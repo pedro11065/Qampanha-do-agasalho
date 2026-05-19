@@ -1,0 +1,10 @@
+flask
+flask-cors
+psycopg2
+dotenv
+openpyxl
+google-generativeai
+requests
+colorama
+
+
