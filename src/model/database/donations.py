@@ -1,26 +1,27 @@
 from src.config.colors import *
 
-class dbDonation:
+class dbDonations:
 
     def __init__(self, db):
         # keep a reference to the parent Db and its connection
         self.db = db
         self.conn = db.conn
 
-    # def search(self, user_name):
+    def search(self):
 
-    #     cur = self.conn.cursor()
+        cur = self.conn.cursor()
 
-    #     cur.execute(f"SELECT users FROM cases WHERE user_name = '{user_name}'")
-    #     self.conn.commit() ; rows = cur.fetchall()
-    #     cur.close()
+        cur.execute(f"SELECT * FROM donation_opt")
+        self.conn.commit() ; rows = cur.fetchall()
+        cur.close()
 
-    #     cases = []
+        donation_opt = []
 
-    #     for row in rows:
-    #         cases.append(row)
+        for row in rows:
+            donation_opt.append(row)
 
-    #     return cases
+        return donation_opt
+
     
     def create(self, donation_opt_id, user_id, team_id):
 
@@ -30,7 +31,7 @@ class dbDonation:
             print(blue("[Database]: ") + "registering case...")
 
             cur.execute(
-                """INSERT INTO cases (donation_opt_id, user_id, team_id)
+                """INSERT INTO donations (donation_opt_id, user_id, team_id)
                     VALUES (%s, %s, %s)""",
                 (donation_opt_id, user_id, team_id),
             )

@@ -10,9 +10,14 @@ class Db:
 
         self.conn = self.connectDb()
 
-        self.dbDonation = dbDonation(self)
+        self.dbDonations = dbDonations(self)
+        self.donations = self.dbDonations
 
-        self.donation = self.dbDonation
+        self.dbUsers = dbUsers(self)
+        self.Users = self.dbUsers
+
+        self.dbTeams = dbTeams(self)
+        self.Teams = self.dbTeams
 
 
     def connectDb(self):
