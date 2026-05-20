@@ -1,4 +1,6 @@
 from src.config.colors import *
+from uuid import uuid4
+from datetime import datetime
 
 class dbDonations:
 
@@ -23,17 +25,18 @@ class dbDonations:
         return donation_opt
 
     
-    def create(self, donation_opt_id, user_id, team_id):
+    def create(self, donation_opt_id, user_id, quant):
 
         try:
             cur = self.conn.cursor()
-
-            print(blue("[Database]: ") + "registering case...")
+            
+            print(blue("[Database]: ") + "registering donation...")
+            donation_id = str(uuid4()) ; donation_time = datetime.now()
 
             cur.execute(
-                """INSERT INTO donations (donation_opt_id, user_id, team_id)
-                    VALUES (%s, %s, %s)""",
-                (donation_opt_id, user_id, team_id),
+                """INSERT INTO donations (donation_id, donation_opt_id, user_id, donation_time, quant)
+                    VALUES (%s, %s, %s, %s, %s)""",
+                (donation_id, donation_opt_id, user_id,donation_time , quant),
             )
             
             self.conn.commit()

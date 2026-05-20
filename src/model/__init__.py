@@ -11,7 +11,7 @@ class Db:
         self.conn = self.connectDb()
 
         self.dbDonations = dbDonations(self)
-        self.donations = self.dbDonations
+        self.Donations = self.dbDonations
 
         self.dbUsers = dbUsers(self)
         self.Users = self.dbUsers

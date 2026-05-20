@@ -4,12 +4,9 @@ from src.config.colors import *
 
 team = Blueprint('auth_team', __name__, template_folder='templates', static_folder='static')
 
-@team.route('/search', methods= ['POST']) #methods=['GET', 'POST']
-def index_page():
-    print(yellow("[API]: ") + "POST request from api/search received")
+@team.route('/search', methods= ['GET']) #methods=['GET', 'POST']
+def search_teams():
+    print(yellow("[API]: ") + "GET request from team/api/search received")
 
-    # data = request.get_json() ; backend = Backend()
-    # return backend.user.login(data)
-
-    return render_template('index.html')
-    
+    backend = Backend()
+    return backend.team.search()
