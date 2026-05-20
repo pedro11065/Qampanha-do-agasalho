@@ -8,11 +8,15 @@ class dbUsers:
         self.db = db
         self.conn = db.conn
 
-    def search(self):
+    def searchByTeam(self, team_id):
 
         cur = self.conn.cursor()
 
-        cur.execute(f"SELECT * FROM users")
+        cur.execute(f"""SELECT user_team.user_id, users.user_name
+                    FROM user_team 
+                    LEFT JOIN users ON user_team.user_id = users.user_id
+                    WHERE user_team.team_id = '{team_id}'""")
+        
         self.conn.commit() ; rows = cur.fetchall()
         cur.close()
 

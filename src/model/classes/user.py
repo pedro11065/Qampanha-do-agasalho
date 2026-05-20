@@ -10,11 +10,12 @@ class User:
     def __init__(self):
         pass
 
-    def search(self):
+    def searchByTeam(self, data):
 
         from src.model import Db
         db = Db()
-        success = db.Users.search()
+        team_id = data["team_id"]
+        success = db.Users.searchByTeam(team_id)
 
         try:
 
