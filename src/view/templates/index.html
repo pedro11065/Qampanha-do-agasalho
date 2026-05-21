@@ -1,184 +1,383 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qampanha do Agasalho - Qlik</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- FontAwesome para Ícones -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Qlik | Qampanha do Agasalho</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --qlik-main: #009845;
+            --qlik-dark: #007a37;
+            --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .input-field {
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+        }
+
+        .input-field:focus {
+            border-color: var(--qlik-main);
+            box-shadow: 0 0 0 4px rgba(0, 152, 69, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background-color: var(--qlik-main);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--qlik-dark);
+            transform: scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 152, 69, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .tab-btn {
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: var(--qlik-main);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40%;
+            height: 4px;
+            background: var(--qlik-main);
+            border-radius: 10px;
+        }
+
+        /* Animações */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        .loader {
+            border-top-color: var(--qlik-main);
+            animation: spinner 0.6s linear infinite;
+        }
+
+        @keyframes spinner {
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-800 antialiased">
+<body class="flex items-center justify-center p-4">
 
-    <!-- Topbar / Header -->
-    <header class="bg-white border-b border-slate-100 sticky top-0 z-50 shadow-sm">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <!-- Logo Simbolizado da Qlik com elemento de inverno -->
-                <div class="bg-emerald-500 text-white p-2 rounded-lg font-black text-xl tracking-tighter shadow-sm">
-                    Q<span class="text-emerald-200 font-light">lik</span>
-                </div>
-                <span class="text-slate-300 font-light text-xl">|</span>
-                <span class="text-sm font-semibold uppercase tracking-wider text-slate-500">Social Responsibility</span>
-            </div>
-            <a href="#onde-doar" class="bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-sm px-5 py-2.5 rounded-full transition shadow-xs">
-                Onde Doar?
-            </a>
-        </div>
-    </header>
-
-    <!-- Hero Section (Banner Principal) -->
-    <section class="relative bg-linear-to-br from-slate-900 via-indigo-950 to-slate-900 text-white py-20 px-6 overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px]"></div>
-        <div class="max-w-4xl mx-auto text-center relative z-10">
-            <span class="bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-emerald-500/30">
-                Ação Social 2026
-            </span>
-            <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mt-6 mb-4">
-                Qampanha do <span class="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">Agasalho</span>
+    <div class="w-full max-w-xl animate-slide-up">
+        <!-- Logo/Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold italic text-gray-800 flex justify-center items-center gap-2">
+                <i data-lucide="snowflake" class="text-[#009845]"></i>
+                Qlik | Qampanha do agasalho
             </h1>
-            <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
-                Mais do que analisar dados, nós transformamos realidades. Junte-se à Qlik para aquecer o inverno de quem mais precisa.
-            </p>
-            <div class="mt-10 flex flex-wrap justify-center gap-4">
-                <a href="#metas" class="bg-white text-slate-900 hover:bg-slate-100 font-semibold px-6 py-3 rounded-lg transition shadow-md">
-                    Ver Nosso Impacto
-                </a>
-                <a href="#como-funciona" class="border border-slate-700 hover:bg-white/5 font-medium px-6 py-3 rounded-lg transition">
-                    O que podemos doar?
-                </a>
-            </div>
+            <p class="text-gray-500 mt-2">Aqueça o inverno de alguém com sua doação</p>
         </div>
-    </section>
 
-    <!-- Seção de Impacto / Termômetro de Metas -->
-    <section id="metas" class="max-w-5xl mx-auto px-6 py-16">
-        <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-xl -mt-24 relative z-20">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-                
-                <!-- Info Meta -->
-                <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-slate-900">Nosso Termômetro</h3>
-                    <p class="text-sm text-slate-500">Acompanhamento em tempo real das arrecadações internas de todas as nossas filiais e hubs.</p>
-                    <div class="pt-2 flex items-center space-x-2 text-emerald-600 font-bold text-2xl">
-                        <span>740</span>
-                        <span class="text-sm font-medium text-slate-400">/ 1.000 peças</span>
-                    </div>
-                </div>
+        <div class="glass-card overflow-hidden">
+            <!-- Tabs -->
+            <div class="flex border-b border-gray-100">
+                <button onclick="switchTab('donation')" id="btn-tab-donation" class="tab-btn active flex-1 py-5 font-semibold flex items-center justify-center gap-2">
+                    <i data-lucide="heart" size="18"></i> Doar
+                </button>
+                <button onclick="switchTab('user')" id="btn-tab-user" class="tab-btn flex-1 py-5 font-semibold text-gray-400 flex items-center justify-center gap-2">
+                    <i data-lucide="user-plus" size="18"></i> Novo Doador
+                </button>
+            </div>
 
-                <!-- Barra do Termômetro -->
-                <div class="md:col-span-2 space-y-3">
-                    <div class="flex justify-between text-xs font-semibold text-slate-500">
-                        <span>Progresso Atual (74%)</span>
-                        <span class="text-emerald-600">Meta: 1.000 Peças</span>
+            <div class="p-8">
+                <!-- Mensagens de Feedback -->
+                <div id="toast" class="hidden mb-6 p-4 rounded-xl text-center font-medium animate-slide-up"></div>
+
+                <!-- Formulário de Doação -->
+                <form id="formDonation" class="space-y-5">
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-gray-600 ml-1">Equipe Qlik</label>
+                        <select id="selectTeam" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none appearance-none">
+                            <option value="">Selecione o time...</option>
+                        </select>
                     </div>
-                    <!-- Track da Barra -->
-                    <div class="w-full bg-slate-100 rounded-full h-5 p-1 overflow-hidden shadow-inner">
-                        <!-- Barra de Progresso Ativa -->
-                        <div class="bg-linear-to-r from-emerald-400 to-emerald-600 h-full rounded-full transition-all duration-1000 relative" style="width: 74%;">
-                            <span class="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-white font-extrabold">74%</span>
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-gray-600 ml-1">Doador</label>
+                        <div class="relative">
+                            <select id="selectUser" disabled required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none disabled:opacity-50 appearance-none">
+                                <option value="">Selecione o time primeiro...</option>
+                            </select>
                         </div>
                     </div>
-                    <p class="text-xs italic text-slate-400 text-right">Última atualização: Hoje, às 14:00.</p>
-                </div>
 
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção: Diretrizes de Doação -->
-    <section id="como-funciona" class="max-w-5xl mx-auto px-6 py-12">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-slate-900">O que estamos arrecadando?</h2>
-            <p class="text-slate-500 mt-2">Garantir a qualidade das doações é um ato de respeito e dignidade.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Card 1 -->
-            <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-xs hover:shadow-md transition">
-                <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center text-xl mb-4">
-                    <i class="fa-solid fa-shirt"></i>
-                </div>
-                <h4 class="font-bold text-slate-900 mb-2">Roupas de Frio</h4>
-                <p class="text-sm text-slate-600 leading-relaxed">Casacos, jaquetas, moletons, suéteres e calças compridas. Itens infantis e adultos de todos os tamanhos.</p>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-xs hover:shadow-md transition">
-                <div class="w-12 h-12 bg-teal-50 text-teal-600 rounded-lg flex items-center justify-center text-xl mb-4">
-                    <i class="fa-solid fa-box-tissue"></i>
-                </div>
-                <h4 class="font-bold text-slate-900 mb-2">Cobertores e Mantas</h4>
-                <p class="text-sm text-slate-600 leading-relaxed">Cobertores, edredons, mantas térmicas e sacos de dormir limpos e prontos para distribuição direta.</p>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-xs hover:shadow-md transition">
-                <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-lg flex items-center justify-center text-xl mb-4">
-                    <i class="fa-solid fa-mitten"></i>
-                </div>
-                <h4 class="font-bold text-slate-900 mb-2">Acessórios</h4>
-                <p class="text-sm text-slate-600 leading-relaxed">Toucas, luvas, meias (apenas pares novos ou perfeitamente conservados) e cachecóis.</p>
-            </div>
-        </div>
-
-        <!-- Alerta de qualidade -->
-        <div class="mt-8 bg-amber-50 border border-amber-200/60 rounded-xl p-4 flex items-start space-x-3">
-            <i class="fa-solid fa-circle-info text-amber-600 mt-0.5 text-lg"></i>
-            <div class="text-sm text-amber-800">
-                <span class="font-bold">Nota de Triagem:</span> Pedimos a gentileza de higienizar as peças antes de realizar a entrega nos pontos de coleta. Roupas rasgadas, sem botões ou manchadas inviabilizam a distribuição rápida.
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção: Onde Doar -->
-    <section id="onde-doar" class="bg-slate-900 text-white py-16 px-6">
-        <div class="max-w-5xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider">Logística Solidária</span>
-                    <h2 class="text-3xl font-bold mt-2 mb-4">Pontos de Coleta Oficiais</h2>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                        Você pode depositar suas doações diretamente nas caixas organizadoras sinalizadas com a identidade da <span class="text-white font-medium">Qampanha do Agasalho</span> localizadas nas recepções principais.
-                    </p>
-                    <div class="space-y-4">
-                        <div class="flex items-start space-x-3">
-                            <i class="fa-solid fa-location-dot text-emerald-400 mt-1"></i>
-                            <div>
-                                <h5 class="font-semibold text-sm">Escritório Central (São Paulo)</h5>
-                                <p class="text-xs text-slate-400">Av. das Nações Unidas, Recepção do Bloco B</p>
-                            </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="md:col-span-2 space-y-2">
+                            <label class="text-sm font-semibold text-gray-600 ml-1">Item</label>
+                            <select id="selectOpt" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none appearance-none">
+                                <option value="">O que vai doar?</option>
+                            </select>
                         </div>
-                        <div class="flex items-start space-x-3">
-                            <i class="fa-solid fa-location-dot text-emerald-400 mt-1"></i>
-                            <div>
-                                <h5 class="font-semibold text-sm">Hub de Engenharia & Suporte</h5>
-                                <p class="text-xs text-slate-400">Área de Convivência / Café do 4º Andar</p>
-                            </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-semibold text-gray-600 ml-1">Qtd</label>
+                            <input type="number" id="inputQuant" min="1" value="1" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none">
                         </div>
                     </div>
-                </div>
-                
-                <!-- Box de Engajamento Interno -->
-                <div class="bg-slate-800/60 border border-slate-800 p-8 rounded-2xl text-center shadow-lg">
-                    <i class="fa-solid fa-heart-circle-check text-4xl text-emerald-400 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Quer organizar um sub-ponto?</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed mb-6">
-                        Se a sua equipe ou squad quer centralizar caixas em outros andares ou escritórios regionais, entre em contato com o comitê de RH para retirar o kit de identificação oficial.
-                    </p>
-                    <a href="mailto:csr@qlik.com" class="inline-block w-full bg-slate-700 hover:bg-slate-600 text-white font-medium text-sm py-3 rounded-lg transition">
-                        Contatar Comitê CSR
-                    </a>
-                </div>
+
+                    <button type="submit" class="btn-primary w-full py-4 text-white font-bold rounded-xl shadow-lg mt-4">
+                        REGISTRAR DOAÇÃO
+                    </button>
+                </form>
+
+                <!-- Formulário de Usuário -->
+                <form id="formUser" class="hidden space-y-5">
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-gray-600 ml-1">Nome Completo</label>
+                        <input type="text" id="newUserName" placeholder="Nome do colaborador" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-gray-600 ml-1">Equipe</label>
+                        <select id="selectTeamForUser" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none appearance-none">
+                            <option value="">Vincular ao time...</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary w-full py-4 text-white font-bold rounded-xl shadow-lg mt-4">
+                        CADASTRAR USUÁRIO
+                    </button>
+                </form>
             </div>
         </div>
-    </section>
+        
+        <p class="text-center text-gray-400 text-xs mt-6">© 2024 Qlik Business Intelligence - Ação Social</p>
+    </div>
 
-    <!-- Rodapé -->
-    <footer class="bg-slate-950 text-slate-600 text-xs py-8 text-center border-t border-slate-900">
-        <p>&copy; 2026 Qlik Corporate Social Responsibility. Conectando dados, pessoas e solidariedade.</p>
-    </footer>
+    <script>
+        // Inicializar Ícones
+        lucide.createIcons();
 
+        const API_URL = "http://127.0.0.1:5000";
+
+        // Alternar Abas
+        function switchTab(tab) {
+            const isDonation = tab === 'donation';
+            document.getElementById('formDonation').classList.toggle('hidden', !isDonation);
+            document.getElementById('formUser').classList.toggle('hidden', isDonation);
+            
+            document.getElementById('btn-tab-donation').classList.toggle('active', isDonation);
+            document.getElementById('btn-tab-donation').classList.toggle('text-gray-400', !isDonation);
+            
+            document.getElementById('btn-tab-user').classList.toggle('active', !isDonation);
+            document.getElementById('btn-tab-user').classList.toggle('text-gray-400', isDonation);
+        }
+
+        // Feedback visual (Toast)
+        function showToast(msg, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.className = `mb-6 p-4 rounded-xl text-center font-medium animate-slide-up ${isError ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'}`;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 4000);
+        }
+
+        // Carregar Times
+        async function fetchTeams() {
+            try {
+                const res = await fetch(`${API_URL}/team/search`);
+                const json = await res.json();
+                if (json.ok) {
+                    const selects = [document.getElementById('selectTeam'), document.getElementById('selectTeamForUser')];
+                    json.data.forEach(t => {
+                        selects.forEach(s => s.add(new Option(t[1], t[0])));
+                    });
+                }
+            } catch (e) { showToast("Erro ao conectar com servidor", true); }
+        }
+
+        // Carregar Opções de Doação
+        async function fetchOptions() {
+            try {
+                const res = await fetch(`${API_URL}/donation/searchOpt`);
+                const json = await res.json();
+                if (json.ok) {
+                    const select = document.getElementById('selectOpt');
+                    json.data.forEach(i => select.add(new Option(`${i[1]} (${i[2]} pts)`, i[0])));
+                }
+            } catch (e) { }
+        }
+
+        // Buscar usuários quando o time mudar
+        document.getElementById('selectTeam').addEventListener('change', async (e) => {
+            const teamId = e.target.value;
+            const userSelect = document.getElementById('selectUser');
+            userSelect.innerHTML = '<option value="">Buscando usuários...</option>';
+            userSelect.disabled = true;
+
+            if (!teamId) return;
+
+            try {
+                const res = await fetch(`${API_URL}/user/searchByTeam`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ team_id: teamId })
+                });
+                const json = await res.json();
+                userSelect.innerHTML = '<option value="">Selecione o doador...</option>';
+                if (json.ok && json.data.length > 0) {
+                    json.data.forEach(u => userSelect.add(new Option(u[1], u[0])));
+                    userSelect.disabled = false;
+                } else {
+                    userSelect.innerHTML = '<option value="">Nenhum usuário neste time</option>';
+                }
+            } catch (e) { showToast("Erro ao buscar usuários", true); }
+        });
+
+        // Registrar Doação
+        // ... (mantenha o restante do código igual)
+
+// Registrar Doação com múltiplos requests
+// Registrar Doação com múltiplos requests
+document.getElementById('formDonation').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const donationOptId = document.getElementById('selectOpt').value;
+    const userId = document.getElementById('selectUser').value;
+    const userTypedQuant = parseInt(document.getElementById('inputQuant').value);
+    
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+    
+    submitBtn.disabled = true;
+    submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+
+    let successCount = 0;
+    let hasError = false;
+
+    // Loop de envios
+    for (let i = 1; i <= userTypedQuant; i++) {
+        submitBtn.innerHTML = `<i class="loader inline-block border-2 border-white border-t-transparent rounded-full w-4 h-4 mr-2"></i> Enviando ${i} de ${userTypedQuant}...`;
+
+        try {
+            const res = await fetch(`${API_URL}/donation/create`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    donation_opt_id: donationOptId,
+                    user_id: userId,
+                    quant: 1 // Mantendo 1 para cada registro individual no banco
+                })
+            });
+
+            const json = await res.json();
+            if (json.ok) successCount++;
+            else { hasError = true; break; }
+        } catch (err) { hasError = true; break; }
+    }
+
+    if (!hasError) {
+        // --- NOVIDADE AQUI ---
+        // Assim que as doações terminam com sucesso, chamamos o Qlik Reload
+        submitBtn.innerHTML = `<i class="loader inline-block border-2 border-white border-t-transparent rounded-full w-4 h-4 mr-2"></i> Atualizando Qlik...`;
+        
+        await triggerQlikReload(); 
+        
+        showToast(`${successCount} doações registradas! O Dashboard está sendo atualizado.`);
+        e.target.reset();
+        document.getElementById('selectUser').disabled = true;
+    } else {
+        showToast("Ocorreu um erro durante o envio.", true);
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+    submitBtn.innerHTML = originalBtnText;
+});
+
+    // ... (mantenha o restante do código igual)
+
+            // Criar Usuário
+            document.getElementById('formUser').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const payload = {
+                    user_name: document.getElementById('newUserName').value,
+                    team_id: document.getElementById('selectTeamForUser').value
+                };
+
+                try {
+                    const res = await fetch(`${API_URL}/user/create`, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(payload)
+                    });
+                    const json = await res.json();
+                    if (json.ok) {
+                        showToast("Usuário criado com sucesso!");
+                        e.target.reset();
+                        //switchTab('donation');
+                    } else {
+                        showToast(json.message, true);
+                    }
+                } catch (e) { showToast("Erro ao criar usuário", true); }
+            });
+
+            window.onload = () => {
+                fetchTeams();
+                fetchOptions();
+            };
+
+        async function triggerQlikReload() {
+        const qlikUrl = 'https://phsq.br.qlikcloud.com/api/v1/automations/1835d6d4-343f-43fa-83fc-e2975c5f6775/actions/execute';
+        const qlikToken = '35H75OAzz3vhLwah3XBm1wbwvVQ2SdHDNSEikeEZbqzNxf8Qk8hRiITJ5kawlrLb';
+
+        try {
+            console.log("Solicitando atualização do Qlik...");
+            const response = await fetch(qlikUrl, {
+                method: 'POST',
+            headers: {
+                'X-Execution-Token': qlikToken,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            console.log("Automação de reload disparada com sucesso!");
+            showToast("Dados enviados e Dashboard atualizado!");
+        } else {
+            console.error("Erro ao disparar automação:", response.status);
+        }
+    } catch (error) {
+        console.error("Erro na comunicação com Qlik Cloud:", error);
+    }
+}
+    </script>
 </body>
 </html>

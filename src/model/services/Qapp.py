@@ -6,10 +6,10 @@ from src.config.colors import *
 def reloadApp() -> Dict[str, Any]:
 
     # Qlik automation endpoint URL
-    url = 'https://phsq.us.qlikcloud.com/api/v1/automations/ad02ea4c-5257-4a99-8bde-a7f6610febf6/actions/execute'
+    url = 'https://phsq.br.qlikcloud.com/api/v1/automations/1835d6d4-343f-43fa-83fc-e2975c5f6775/actions/execute'
     
     # Execution token for authentication
-    token = 'ZCBMbZpYUyi90TWFJYQ8iZ35r9RJPre47QFUtJCNu4u7VTCWvKQQeZu0LuKq3UdY'
+    token = '35H75OAzz3vhLwah3XBm1wbwvVQ2SdHDNSEikeEZbqzNxf8Qk8hRiITJ5kawlrLb'
     
     # Headers for the request
     headers = {

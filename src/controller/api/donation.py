@@ -4,7 +4,7 @@ from src.config.colors import *
 
 donation = Blueprint('auth_donation', __name__, template_folder='templates', static_folder='static')
 
-@donation.route('/search', methods= ['GET']) #methods=['GET', 'POST']
+@donation.route('/searchOpt', methods= ['GET']) #methods=['GET', 'POST'] 
 def search_donation_opt():
     print(yellow("[API]: ") + "GET request from donation/api/search received")
     backend = Backend()

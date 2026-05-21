@@ -49,6 +49,7 @@ class Donation:
         try:
 
             if success:
+                reloadApp()
                 print(cyan("[back-end]: ") + "Donation created successfully!")
                 return jsonify({'ok': True, 'message': 'Donation created successfully!'}), 201
 
