@@ -305,15 +305,16 @@ document.getElementById('formDonation').addEventListener('submit', async (e) => 
     if (!hasError) {
         // --- NOVIDADE AQUI ---
         // Assim que as doações terminam com sucesso, chamamos o Qlik Reload
-        submitBtn.innerHTML = `<i class="loader inline-block border-2 border-white border-t-transparent rounded-full w-4 h-4 mr-2"></i> Atualizando Qlik...`;
+        //submitBtn.innerHTML = `<i class="loader inline-block border-2 border-white border-t-transparent rounded-full w-4 h-4 mr-2"></i> Atualizando Qlik...`;
         
-        await triggerQlikReload(); 
+        //await triggerQlikReload(); 
         
-        showToast(`${successCount} doações registradas! O Dashboard está sendo atualizado.`);
-        e.target.reset();
-        document.getElementById('selectUser').disabled = true;
-    } else {
-        showToast("Ocorreu um erro durante o envio.", true);
+    showToast(`${successCount} doações registradas! O Dashboard está sendo atualizado.`);
+    e.target.reset();
+    document.getElementById('selectUser').disabled = true;
+        
+    //} else {
+     //   showToast("Ocorreu um erro durante o envio.", true);
     }
 
     submitBtn.disabled = false;
@@ -354,8 +355,8 @@ document.getElementById('formDonation').addEventListener('submit', async (e) => 
             };
 
         async function triggerQlikReload() {
-        const qlikUrl = 'https://phsq.br.qlikcloud.com/api/v1/automations/1835d6d4-343f-43fa-83fc-e2975c5f6775/actions/execute';
-        const qlikToken = '35H75OAzz3vhLwah3XBm1wbwvVQ2SdHDNSEikeEZbqzNxf8Qk8hRiITJ5kawlrLb';
+        const qlikUrl = 'https://qampanhadoagasalho.se.qlikcloud.com/api/v1/automations/ee9760b6-44c7-48b8-adc1-f06f0db29a47/actions/execute';
+        const qlikToken = 'lRko6BToBETcpYZYtQTtKFYBmVOvBgNKQNDPEYtf63vjVsxPAO8vlPffTYRwOWdQ';
 
         try {
             console.log("Solicitando atualização do Qlik...");

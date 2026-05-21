@@ -6,10 +6,10 @@ from src.config.colors import *
 def reloadApp() -> Dict[str, Any]:
 
     # Qlik automation endpoint URL
-    url = 'https://phsq.br.qlikcloud.com/api/v1/automations/1835d6d4-343f-43fa-83fc-e2975c5f6775/actions/execute'
+    url = 'https://qampanhadoagasalho.se.qlikcloud.com/api/v1/automations/ee9760b6-44c7-48b8-adc1-f06f0db29a47/actions/execute'
     
     # Execution token for authentication
-    token = '35H75OAzz3vhLwah3XBm1wbwvVQ2SdHDNSEikeEZbqzNxf8Qk8hRiITJ5kawlrLb'
+    token = 'lRko6BToBETcpYZYtQTtKFYBmVOvBgNKQNDPEYtf63vjVsxPAO8vlPffTYRwOWdQ'
     
     # Headers for the request
     headers = {
@@ -55,8 +55,8 @@ def reloadAppAsync() -> None:
     """
     Triggers the Qlik automation asynchronously without waiting for response details.
     """
-    url = 'https://rbhujxybcm4eatw.us.qlikcloud.com/api/v1/automations/ad02ea4c-5257-4a99-8bde-a7f6610febf6/actions/execute'
-    token = 'ZCBMbZpYUyi90TWFJYQ8iZ35r9RJPre47QFUtJCNu4u7VTCWvKQQeZu0LuKq3UdY'
+    url = 'https://qampanhadoagasalho.se.qlikcloud.com/api/v1/automations/ee9760b6-44c7-48b8-adc1-f06f0db29a47/actions/execute'
+    token = 'lRko6BToBETcpYZYtQTtKFYBmVOvBgNKQNDPEYtf63vjVsxPAO8vlPffTYRwOWdQ'
     
     headers = {
         'X-Execution-Token': token,
