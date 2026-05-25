@@ -38,12 +38,15 @@ class dbDonations:
                     VALUES (%s, %s, %s, %s, %s)""",
                 (donation_id, donation_opt_id, user_id,donation_time , quant),
             )
+
+            
             
             self.conn.commit()
             cur.close()
 
             print(green("[Database]: ") + "Donation registered successfully!")
             return True
+        
         except Exception as e:
             print(red("[ERROR]: ") + f"Could not register donation: {e}")
             self.conn.rollback()

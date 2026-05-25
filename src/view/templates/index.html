@@ -274,7 +274,7 @@
         // 5. CARREGAR DADOS (TEAMS & OPTS)
         async function fetchData() {
             try {
-                const resTeam = await fetch(`${API_URL}/team/search`);
+                const resTeam = await fetch(`/team/search`);
                 if (!resTeam.ok) throw new Error(`Status ${resTeam.status}`);
                 const jsonTeam = await resTeam.json();
                 if (jsonTeam.ok) {
@@ -282,7 +282,7 @@
                     jsonTeam.data.forEach(t => selects.forEach(s => s.add(new Option(t[1], t[0]))));
                 }
 
-                const resOpt = await fetch(`${API_URL}/donation/searchOpt`);
+                const resOpt = await fetch(`/donation/searchOpt`);
                 if (!resOpt.ok) throw new Error(`Status ${resOpt.status}`);
                 const jsonOpt = await resOpt.json();
                 if (jsonOpt.ok) {
@@ -300,7 +300,7 @@
             userSelect.disabled = true;
             if (!teamId) return;
             try {
-                const res = await fetch(`${API_URL}/user/searchByTeam`, {
+                const res = await fetch(`/user/searchByTeam`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ team_id: teamId })
@@ -330,11 +330,14 @@
 
             for (let i = 1; i <= quantTyped; i++) {
                 btn.innerHTML = `Processando ${i} de ${quantTyped}...`;
+
+                const metadata = getBrowserMetadata();
+                
                 try {
-                    const res = await fetch(`${API_URL}/donation/create`, {
+                    const res = await fetch(`/donation/create`, {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({ donation_opt_id: donationOptId, user_id: userId, quant: quantTyped })
+                        body: JSON.stringify({ donation_opt_id: donationOptId, user_id: userId, quant: quantTyped, browser_info: metadata })
                     });
                     if (res.ok) successCount++;
                     else { lastError = `Erro ${res.status}`; break; }
@@ -358,7 +361,7 @@
         document.getElementById('formUser').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
-                const res = await fetch(`${API_URL}/user/create`, {
+                const res = await fetch(`/user/create`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ 
@@ -380,6 +383,16 @@
             fetchData();
             createSnow();
         };
+
+        function getBrowserMetadata() {
+    return {
+        browser_language: navigator.language || navigator.userLanguage,
+        screen_resolution: `${window.screen.width}x${window.screen.height}`,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        referrer: document.referrer || "Direct Access"
+    };
+}
+
     </script>
 </body>
 </html>

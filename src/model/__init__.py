@@ -19,6 +19,9 @@ class Db:
         self.dbTeams = dbTeams(self)
         self.Teams = self.dbTeams
 
+        self.dbLogs = dbLogs(self)
+        self.Logs = self.dbLogs
+
 
     def connectDb(self):
         

@@ -34,6 +34,24 @@ CREATE TABLE donations (
     CONSTRAINT fk_donation_user FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
+CREATE TABLE donation_logs (
+    
+    log_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID,
+    donation_opt_id UUID,
+    quantity INTEGER,
+    ip_address VARCHAR(45),          
+    user_agent TEXT,                 
+    browser_language VARCHAR(10),    
+    screen_resolution VARCHAR(20),   
+    timezone VARCHAR(50),           
+    session_referrer TEXT,          
+    http_status INTEGER,           
+    is_success BOOLEAN,
+    error_message TEXT,           
+    created_at TIMESTAMP
+);
+
 INSERT INTO donation_opt (donation_opt_id, donation_name, donation_points) VALUES
 (gen_random_uuid(), 'Gorro', 1),
 (gen_random_uuid(), 'Luva', 1),

@@ -14,5 +14,6 @@ def search_donation_opt():
 def create_donation():
     print(yellow("[API]: ") + "POST request from donation/api/create received")
 
-    data = request.get_json() ; backend = Backend()
+    ip_addr = request.remote_addr; user_agent = request.headers.get('User-Agent')
+    data = [request.get_json(), ip_addr, user_agent] ; backend = Backend()
     return backend.donation.create(data)

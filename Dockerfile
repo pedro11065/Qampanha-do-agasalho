@@ -19,8 +19,6 @@ CMD ["python", "main.py"]
 #scp -i "C:\Users\UXK\Downloads\qampanha_do_agasalho_ssh.pem" C:\Users\UXK\qampanha_do_agasalho.tar ubuntu@ec2-16-59-211-240.us-east-2.compute.amazonaws.com:/home/ubuntu/
 
 
-
-
 # Script de conexão SSH (baseado nos comentários acima):
 # - No Windows (PowerShell/CMD) usando a chave .pem:
 #   scp -i "C:\Users\UXK\Downloads\qampanha_do_agasalho_ssh.pem" C:\Users\UXK\qampanha_do_agasalho.tar ubuntu@ec2-16-59-211-240.us-east-2.compute.amazonaws.com:/home/ubuntu/
@@ -33,3 +31,8 @@ CMD ["python", "main.py"]
 # Observações:
 # - Ajuste os caminhos da chave e do arquivo .tar conforme necessário.
 # - Garanta permissões corretas na chave: chmod 600 ~/.ssh/chave_qampanha_do_agasalho.pem
+
+
+#docker ps
+#docker stop <ID_OU_NOME>
+#docker rm <ID_OU_NOME>
