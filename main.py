@@ -5,7 +5,7 @@ from src.model import Db
 db=Db()
 
 app = create_app()
-CORS(app, resources={r"/api/*": {"origins": "*"}}) 
+CORS(app) 
 app.app_context().push()
 
 #script_path = 'app.py'

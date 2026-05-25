@@ -184,8 +184,6 @@
         // Inicializar Ícones
         lucide.createIcons();
 
-        const API_URL = "http://127.0.0.1:5000";
-
         // Alternar Abas
         function switchTab(tab) {
             const isDonation = tab === 'donation';
@@ -211,7 +209,7 @@
         // Carregar Times
         async function fetchTeams() {
             try {
-                const res = await fetch(`${API_URL}/team/search`);
+                const res = await fetch(`/team/search`);
                 const json = await res.json();
                 if (json.ok) {
                     const selects = [document.getElementById('selectTeam'), document.getElementById('selectTeamForUser')];
@@ -225,7 +223,7 @@
         // Carregar Opções de Doação
         async function fetchOptions() {
             try {
-                const res = await fetch(`${API_URL}/donation/searchOpt`);
+                const res = await fetch(`/donation/searchOpt`);
                 const json = await res.json();
                 if (json.ok) {
                     const select = document.getElementById('selectOpt');
@@ -244,7 +242,7 @@
             if (!teamId) return;
 
             try {
-                const res = await fetch(`${API_URL}/user/searchByTeam`, {
+                const res = await fetch(`/user/searchByTeam`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ team_id: teamId })
@@ -286,7 +284,7 @@ document.getElementById('formDonation').addEventListener('submit', async (e) => 
         submitBtn.innerHTML = `<i class="loader inline-block border-2 border-white border-t-transparent rounded-full w-4 h-4 mr-2"></i> Enviando ${i} de ${userTypedQuant}...`;
 
         try {
-            const res = await fetch(`${API_URL}/donation/create`, {
+            const res = await fetch(`/donation/create`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
@@ -333,7 +331,7 @@ document.getElementById('formDonation').addEventListener('submit', async (e) => 
                 };
 
                 try {
-                    const res = await fetch(`${API_URL}/user/create`, {
+                    const res = await fetch(`/user/create`, {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify(payload)
