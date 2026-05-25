@@ -11,207 +11,288 @@
         :root {
             --qlik-main: #009845;
             --qlik-dark: #007a37;
-            --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
-        }
-        body { font-family: 'Inter', sans-serif; background: var(--bg-gradient); min-height: 100vh; overflow-x: hidden; }
-        
-        /* Efeito de Vidro e Transição de Tamanho */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Animação suave do card */
+            --qlik-blue: #0065ad;
         }
 
-        .input-field { transition: all 0.3s ease; border: 2px solid #e2e8f0; }
-        .input-field:focus { border-color: var(--qlik-main); box-shadow: 0 0 0 4px rgba(0, 152, 69, 0.1); }
-        
-        .btn-primary { background-color: var(--qlik-main); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .btn-primary:hover { background-color: var(--qlik-dark); transform: scale(1.02); }
-        
-        .tab-btn { transition: all 0.4s ease; position: relative; color: #94a3b8; }
-        .tab-btn.active { color: var(--qlik-main); }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            min-height: 100vh; 
+            margin: 0; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        /* FUNDO ANIMADO INVERNO PROFUNDO */
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0f172a 0%, #112240 50%, #064e3b 100%);
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            width: 600px; height: 600px;
+            background: var(--qlik-main);
+            filter: blur(100px);
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: move 25s infinite alternate;
+        }
+        .blob-2 { background: var(--qlik-blue); right: -100px; top: -100px; animation-duration: 35s; }
+        .blob-3 { background: #00ff73; left: 10%; bottom: -50px; animation-duration: 20s; opacity: 0.1; }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%) scale(1); }
+            to { transform: translate(10%, 10%) scale(1.1); }
+        }
+
+        /* NEVE CONTRASTANTE */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            pointer-events: none;
+            animation: fall linear infinite;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) translateX(0); }
+            100% { transform: translateY(110vh) translateX(50px); }
+        }
+
+        /* DESIGN GLASSMORPHISM */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 28px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tab-btn { transition: all 0.4s ease; position: relative; color: #64748b; }
+        .tab-btn.active { color: var(--qlik-main); font-weight: 700; }
         .tab-btn.active::after {
             content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
             width: 40%; height: 4px; background: var(--qlik-main); border-radius: 10px;
         }
 
+        .input-field { transition: all 0.3s ease; border: 2px solid #e2e8f0; border-radius: 14px; outline: none; }
+        .input-field:focus { border-color: var(--qlik-main); box-shadow: 0 0 0 4px rgba(0, 152, 69, 0.1); }
+
+        .btn-primary { 
+            background-color: var(--qlik-main); 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 15px -3px rgba(0, 152, 69, 0.4);
+        }
+        .btn-primary:hover { background-color: var(--qlik-dark); transform: translateY(-2px); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+        /* TABELA DE MEMBROS */
+        .team-table-container { overflow-x: auto; border-radius: 12px; }
+        .team-col { min-width: 140px; flex: 1; }
+        .team-header { background: var(--qlik-main); color: white; padding: 12px; font-weight: bold; text-align: center; border-radius: 10px 10px 0 0; font-size: 0.85rem; }
+        .name-row { padding: 10px; border-bottom: 1px solid #f1f5f9; font-size: 0.75rem; text-align: center; color: #334155; }
+        .name-row:nth-child(even) { background: rgba(248, 250, 252, 0.8); }
+
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .animate-slide-up { animation: slideUp 0.6s ease-out forwards; }
-        
-        /* Estilo da Tabela */
-        .team-table-container { overflow-x: auto; scrollbar-width: thin; }
-        .team-col { min-width: 140px; flex: 1; }
-        .team-header { background: var(--qlik-main); color: white; padding: 10px; font-weight: bold; text-align: center; border-radius: 8px 8px 0 0; font-size: 0.9rem; }
-        .name-row { padding: 8px; border-bottom: 1px solid #f1f5f9; font-size: 0.8rem; text-align: center; color: #475569; white-space: nowrap; }
-        .name-row:nth-child(even) { background: #f8fafc; }
     </style>
 </head>
-<body class="flex items-center justify-center p-4">
+<body>
 
-    <!-- Container Principal com ID para o JS controlar a largura -->
-    <div id="main-container" class="w-full max-w-xl transition-all duration-500 ease-in-out animate-slide-up">
+    <!-- ELEMENTOS DE FUNDO -->
+    <div class="bg-animation" id="snow-container">
+        <div class="blob"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- CONTAINER PRINCIPAL -->
+    <div id="main-container" class="w-full max-w-xl transition-all duration-500 ease-in-out animate-slide-up p-4">
         
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold italic text-gray-800 flex justify-center items-center gap-2">
-                <i data-lucide="snowflake" class="text-[#009845]"></i>
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold italic text-white drop-shadow-lg flex justify-center items-center gap-2">
+                <i data-lucide="snowflake" class="text-white animate-pulse"></i>
                 Qlik | Qampanha do agasalho
             </h1>
-        </div>
+            <p class="text-blue-100 opacity-80 mt-2 font-light">Winter Action 2026</p>
+        </header>
 
         <div class="glass-card overflow-hidden">
-            <!-- Tabs -->
-            <div class="flex border-b border-gray-100 bg-white">
+            <!-- ABAS -->
+            <nav class="flex border-b border-gray-100 bg-white/80">
                 <button onclick="switchTab('donation')" id="btn-tab-donation" class="tab-btn active flex-1 py-5 font-semibold flex items-center justify-center gap-2">
                     <i data-lucide="heart" size="18"></i> Doar
                 </button>
                 <button onclick="switchTab('teams')" id="btn-tab-teams" class="tab-btn flex-1 py-5 font-semibold flex items-center justify-center gap-2">
-                    <i data-lucide="users" size="18"></i> Membros / Equipes
+                    <i data-lucide="users" size="18"></i> Membros
                 </button>
                 <button onclick="switchTab('user')" id="btn-tab-user" class="tab-btn flex-1 py-5 font-semibold flex items-center justify-center gap-2">
                     <i data-lucide="user-plus" size="18"></i> Novo Doador
                 </button>
-            </div>
+            </nav>
 
-            <div class="p-6">
-                <div id="toast" class="hidden mb-6 p-4 rounded-xl text-center font-medium animate-slide-up"></div>
+            <div class="p-8">
+                <!-- MENSAGENS -->
+                <div id="toast" class="hidden mb-6 p-4 rounded-2xl text-center font-medium animate-slide-up"></div>
 
-                <!-- SEÇÃO DOAÇÃO -->
+                <!-- SEÇÃO: REGISTRAR DOAÇÃO -->
                 <section id="section-donation" class="max-w-lg mx-auto">
                     <form id="formDonation" class="space-y-5">
-                        <div class="space-y-2">
-                            <label class="text-sm font-semibold text-gray-600 ml-1">Equipe Qlik</label>
-                            <select id="selectTeam" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none">
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-gray-500 uppercase ml-1">Equipe Qlik</label>
+                            <select id="selectTeam" required class="input-field w-full p-4 bg-white/50">
                                 <option value="">Selecione o time...</option>
                             </select>
                         </div>
-                        <div class="space-y-2">
-                            <label class="text-sm font-semibold text-gray-600 ml-1">Doador</label>
-                            <select id="selectUser" disabled required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none disabled:opacity-50">
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-gray-500 uppercase ml-1">Doador</label>
+                            <select id="selectUser" disabled required class="input-field w-full p-4 bg-white/50 disabled:bg-gray-100">
                                 <option value="">Selecione o time primeiro...</option>
                             </select>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div class="md:col-span-2 space-y-2">
-                                <label class="text-sm font-semibold text-gray-600 ml-1">Item</label>
-                                <select id="selectOpt" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none">
-                                    <option value="">O que vai doar?</option>
+                            <div class="md:col-span-2 space-y-1">
+                                <label class="text-xs font-bold text-gray-500 uppercase ml-1">O que será doado?</label>
+                                <select id="selectOpt" required class="input-field w-full p-4 bg-white/50">
+                                    <option value="">Item...</option>
                                 </select>
                             </div>
-                            <div class="space-y-2">
-                                <label class="text-sm font-semibold text-gray-600 ml-1">Qtd</label>
-                                <input type="number" id="inputQuant" min="1" value="1" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none">
+                            <div class="space-y-1">
+                                <label class="text-xs font-bold text-gray-500 uppercase ml-1">Qtd</label>
+                                <input type="number" id="inputQuant" min="1" value="1" required class="input-field w-full p-4 bg-white/50">
                             </div>
                         </div>
-                        <button type="submit" class="btn-primary w-full py-4 text-white font-bold rounded-xl shadow-lg mt-4">REGISTRAR DOAÇÃO</button>
+                        <button type="submit" id="btnDonation" class="btn-primary w-full py-4 text-white font-bold rounded-2xl mt-4">
+                            REGISTRAR DOAÇÃO
+                        </button>
                     </form>
                 </section>
 
-                <!-- SEÇÃO TABELA (Ajustada para expansão) -->
+                <!-- SEÇÃO: TABELA DE MEMBROS -->
                 <section id="section-teams" class="hidden">
-                    <div class="team-table-container pb-2">
-                        <div class="flex gap-2 min-w-max md:min-w-0">
-                            <!-- Colunas da Tabela -->
-                            <div class="team-col"><div class="team-header">Kfouri</div><div class="name-row font-semibold">Eduardo K.</div><div class="name-row">Demetrius</div><div class="name-row">Gabi</div><div class="name-row">Hayashi</div><div class="name-row">Julio</div><div class="name-row">Katia</div><div class="name-row">Lucas</div><div class="name-row">Paulo P.</div><div class="name-row">Pedro B.</div><div class="name-row">Renata</div><div class="name-row">Ricardo</div><div class="name-row">Rogerio</div></div>
-                            <div class="team-col"><div class="team-header">Sterenfeld</div><div class="name-row font-semibold">Eduardo S.</div><div class="name-row">Felipe A.</div><div class="name-row">Felipe F.</div><div class="name-row">Fernando</div><div class="name-row">Iury</div><div class="name-row">João Campos</div><div class="name-row">Marcio</div><div class="name-row">Natalia</div><div class="name-row">Nayra</div><div class="name-row">Rocha</div><div class="name-row">Vini Santos</div><div class="name-row">Vini Starteri</div></div>
-                            <div class="team-col"><div class="team-header">Cesar</div><div class="name-row font-semibold">Cesar</div><div class="name-row">Alexandre</div><div class="name-row">Bernando</div><div class="name-row">Everton</div><div class="name-row">Gabriel O.</div><div class="name-row">João H.</div><div class="name-row">Jorge</div><div class="name-row">Lombardi</div><div class="name-row">Marcelus</div><div class="name-row">Pedro Q.</div><div class="name-row">Raphael</div><div class="name-row">Raquel</div></div>
-                            <div class="team-col"><div class="team-header">Olimpio</div><div class="name-row font-semibold">Olimpio</div><div class="name-row">Forna</div><div class="name-row">Gabriel S.</div><div class="name-row">Guille</div><div class="name-row">Hebert</div><div class="name-row">Ivan</div><div class="name-row">Marcos S.</div><div class="name-row">Mel</div><div class="name-row">Rafaela</div><div class="name-row">Silvan</div><div class="name-row">Wederson</div><div class="name-row">Yan</div></div>
-                            <div class="team-col"><div class="team-header">Flavia</div><div class="name-row font-semibold">Flavia</div><div class="name-row">Adriana</div><div class="name-row">Amalia</div><div class="name-row">Bruno</div><div class="name-row">Deny</div><div class="name-row">Fabio R.</div><div class="name-row">Lidi</div><div class="name-row">Meiry</div><div class="name-row">Monteleone</div><div class="name-row">Paulo S.</div><div class="name-row">Robson</div><div class="name-row">Tonial</div></div>
-                            <div class="team-col"><div class="team-header">Pici</div><div class="name-row font-semibold">Luis Pici</div><div class="name-row">Diogo</div><div class="name-row">Nilson</div><div class="name-row">Gui Leite</div><div class="name-row">Rufino</div><div class="name-row">Andrea</div><div class="name-row">Isabela</div><div class="name-row">Pedro M.</div><div class="name-row">Fabio G.</div><div class="name-row">Stefani</div><div class="name-row">Douglas</div><div class="name-row">Belle</div></div>
+                    <div class="team-table-container">
+                        <div class="flex gap-2">
+                            <div class="team-col"><div class="team-header">Kfouri</div><div class="name-row font-bold">Eduardo K.</div><div class="name-row">Demetrius</div><div class="name-row">Gabi</div><div class="name-row">Hayashi</div><div class="name-row">Julio</div><div class="name-row">Katia</div><div class="name-row">Lucas</div><div class="name-row">Paulo P.</div><div class="name-row">Pedro B.</div><div class="name-row">Renata</div><div class="name-row">Ricardo</div><div class="name-row">Rogerio</div></div>
+                            <div class="team-col"><div class="team-header">Sterenfeld</div><div class="name-row font-bold">Eduardo S.</div><div class="name-row">Felipe A.</div><div class="name-row">Felipe F.</div><div class="name-row">Fernando</div><div class="name-row">Iury</div><div class="name-row">João Campos</div><div class="name-row">Marcio</div><div class="name-row">Natalia</div><div class="name-row">Nayra</div><div class="name-row">Rocha</div><div class="name-row">Vini Santos</div><div class="name-row">Vini Starteri</div></div>
+                            <div class="team-col"><div class="team-header">Cesar</div><div class="name-row font-bold">Cesar</div><div class="name-row">Alexandre</div><div class="name-row">Bernando</div><div class="name-row">Everton</div><div class="name-row">Gabriel O.</div><div class="name-row">João H.</div><div class="name-row">Jorge</div><div class="name-row">Lombardi</div><div class="name-row">Marcelus</div><div class="name-row">Pedro Q.</div><div class="name-row">Raphael</div><div class="name-row">Raquel</div></div>
+                            <div class="team-col"><div class="team-header">Olimpio</div><div class="name-row font-bold">Olimpio</div><div class="name-row">Forna</div><div class="name-row">Gabriel S.</div><div class="name-row">Guille</div><div class="name-row">Hebert</div><div class="name-row">Ivan</div><div class="name-row">Marcos S.</div><div class="name-row">Mel</div><div class="name-row">Rafaela</div><div class="name-row">Silvan</div><div class="name-row">Wederson</div><div class="name-row">Yan</div></div>
+                            <div class="team-col"><div class="team-header">Flavia</div><div class="name-row font-bold">Flavia</div><div class="name-row">Adriana</div><div class="name-row">Amalia</div><div class="name-row">Bruno</div><div class="name-row">Deny</div><div class="name-row">Fabio R.</div><div class="name-row">Lidi</div><div class="name-row">Meiry</div><div class="name-row">Monteleone</div><div class="name-row">Paulo S.</div><div class="name-row">Robson</div><div class="name-row">Tonial</div></div>
+                            <div class="team-col"><div class="team-header">Pici</div><div class="name-row font-bold">Luis Pici</div><div class="name-row">Diogo</div><div class="name-row">Nilson</div><div class="name-row">Gui Leite</div><div class="name-row">Rufino</div><div class="name-row">Andrea</div><div class="name-row">Isabela</div><div class="name-row">Pedro M.</div><div class="name-row">Fabio G.</div><div class="name-row">Stefani</div><div class="name-row">Douglas</div><div class="name-row">Belle</div></div>
                         </div>
                     </div>
                 </section>
 
-                <!-- SEÇÃO NOVO USUÁRIO -->
+                <!-- SEÇÃO: NOVO USUÁRIO -->
                 <section id="section-user" class="hidden max-w-lg mx-auto">
                     <form id="formUser" class="space-y-5">
-                        <div class="space-y-2">
-                            <label class="text-sm font-semibold text-gray-600 ml-1">Nome Completo</label>
-                            <input type="text" id="newUserName" placeholder="Nome do colaborador" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none">
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-gray-500 uppercase ml-1">Nome Completo</label>
+                            <input type="text" id="newUserName" placeholder="Ex: Pedro Henrique" required class="input-field w-full p-4 bg-white/50">
                         </div>
-                        <div class="space-y-2">
-                            <label class="text-sm font-semibold text-gray-600 ml-1">Equipe</label>
-                            <select id="selectTeamForUser" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none">
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-gray-500 uppercase ml-1">Equipe Vinculada</label>
+                            <select id="selectTeamForUser" required class="input-field w-full p-4 bg-white/50">
                                 <option value="">Vincular ao time...</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn-primary w-full py-4 text-white font-bold rounded-xl shadow-lg mt-4">CADASTRAR USUÁRIO</button>
+                        <button type="submit" class="btn-primary w-full py-4 text-white font-bold rounded-2xl mt-4">
+                            CADASTRAR DOADOR
+                        </button>
                     </form>
                 </section>
             </div>
         </div>
-        <p class="text-center text-gray-400 text-xs mt-6">© 2024 Qlik Business Intelligence - Qampanha do Agasalho</p>
+        <p class="text-center text-white/40 text-[10px] mt-6 uppercase tracking-widest font-bold">Qlik Business Intelligence © 2026</p>
     </div>
 
     <script>
         lucide.createIcons();
         const API_URL = "http://127.0.0.1:5000";
 
-        // MUDANÇA DE ABA COM RESIZE DINÂMICO
+        // 1. NEVE ANIMADA
+        function createSnow() {
+            const container = document.getElementById('snow-container');
+            const count = 50;
+            for (let i = 0; i < count; i++) {
+                const snow = document.createElement('div');
+                snow.className = 'snowflake';
+                const size = Math.random() * 4 + 2 + 'px';
+                snow.style.width = size;
+                snow.style.height = size;
+                snow.style.left = Math.random() * 100 + '%';
+                snow.style.animationDuration = (Math.random() * 7 + 5) + 's';
+                snow.style.animationDelay = (Math.random() * 5) + 's';
+                snow.style.opacity = Math.random() * 0.7 + 0.3;
+                container.appendChild(snow);
+            }
+        }
+
+        // 2. ALTERNAR ABAS COM REDIMENSIONAMENTO
         function switchTab(tab) {
             const container = document.getElementById('main-container');
             const sections = ['donation', 'teams', 'user'];
-
-            // Ajusta a largura baseada na aba
-            if (tab === 'teams') {
-                container.classList.replace('max-w-xl', 'max-w-6xl');
-            } else {
-                container.classList.replace('max-w-6xl', 'max-w-xl');
-            }
+            
+            container.classList.replace(tab === 'teams' ? 'max-w-xl' : 'max-w-6xl', tab === 'teams' ? 'max-w-6xl' : 'max-w-xl');
 
             sections.forEach(s => {
                 document.getElementById(`section-${s}`).classList.toggle('hidden', s !== tab);
                 document.getElementById(`btn-tab-${s}`).classList.toggle('active', s === tab);
-                const btn = document.getElementById(`btn-tab-${s}`);
-                if (s !== tab) btn.classList.add('text-gray-400');
-                else btn.classList.remove('text-gray-400');
+                document.getElementById(`btn-tab-${s}`).classList.toggle('text-gray-400', s !== tab);
             });
         }
 
+        // 3. TOAST NOTIFICATION COM CÓDIGO DE ERRO
         function showToast(msg, isError = false) {
             const toast = document.getElementById('toast');
             toast.textContent = msg;
-            toast.className = `mb-6 p-4 rounded-xl text-center font-medium animate-slide-up ${isError ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'}`;
+            toast.className = `mb-6 p-4 rounded-2xl text-center font-medium animate-slide-up ${isError ? 'bg-red-500/10 text-red-500 border border-red-500/20' : 'bg-green-500/10 text-green-600 border border-green-500/20'}`;
             toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 5000);
+            setTimeout(() => toast.classList.add('hidden'), 6000);
         }
 
+        // 4. QLIK CLOUD RELOAD TRIGGER
         async function triggerQlikReload() {
             const qlikUrl = 'https://phsq.br.qlikcloud.com/api/v1/automations/1835d6d4-343f-43fa-83fc-e2975c5f6775/actions/execute';
             const qlikToken = '35H75OAzz3vhLwah3XBm1wbwvVQ2SdHDNSEikeEZbqzNxf8Qk8hRiITJ5kawlrLb';
             try {
                 const res = await fetch(qlikUrl, {
                     method: 'POST',
-                    headers: { 'X-Execution-Token': qlikToken, 'Content-Type': 'application/json', 'Accept': 'application/json' }
+                    headers: { 'X-Execution-Token': qlikToken, 'Content-Type': 'application/json' }
                 });
-            } catch (error) { console.error("Erro Conexão Qlik:", error); }
+                if (!res.ok) console.error(`Erro Qlik: Status ${res.status}`);
+            } catch (error) { console.error("Falha na conexão com Qlik:", error); }
         }
 
+        // 5. CARREGAR DADOS (TEAMS & OPTS)
         async function fetchData() {
             try {
                 const resTeam = await fetch(`${API_URL}/team/search`);
-                if (!resTeam.ok) throw new Error("Status " + resTeam.status);
+                if (!resTeam.ok) throw new Error(`Status ${resTeam.status}`);
                 const jsonTeam = await resTeam.json();
-                
-                if (jsonTeam && jsonTeam.ok) {
+                if (jsonTeam.ok) {
                     const selects = [document.getElementById('selectTeam'), document.getElementById('selectTeamForUser')];
                     jsonTeam.data.forEach(t => selects.forEach(s => s.add(new Option(t[1], t[0]))));
                 }
 
                 const resOpt = await fetch(`${API_URL}/donation/searchOpt`);
-                if (!resOpt.ok) throw new Error("Status " + resOpt.status);
+                if (!resOpt.ok) throw new Error(`Status ${resOpt.status}`);
                 const jsonOpt = await resOpt.json();
                 if (jsonOpt.ok) {
                     const select = document.getElementById('selectOpt');
                     jsonOpt.data.forEach(i => select.add(new Option(`${i[1]} (${i[2]} pts)`, i[0])));
                 }
-            } catch (e) { 
-                showToast("Erro ao carregar dados: " + e.message, true); 
-            }
+            } catch (e) { showToast(`Erro de carregamento: ${e.message}`, true); }
         }
 
+        // 6. BUSCAR USUÁRIOS POR TIME
         document.getElementById('selectTeam').addEventListener('change', async (e) => {
             const teamId = e.target.value;
             const userSelect = document.getElementById('selectUser');
@@ -224,86 +305,81 @@
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ team_id: teamId })
                 });
-                if (!res.ok) throw new Error("Status " + res.status);
+                if (!res.ok) throw new Error(`Status ${res.status}`);
                 const json = await res.json();
                 userSelect.innerHTML = '<option value="">Selecione o doador...</option>';
                 if (json.ok && json.data.length > 0) {
                     json.data.forEach(u => userSelect.add(new Option(u[1], u[0])));
                     userSelect.disabled = false;
                 }
-            } catch (e) { 
-                showToast("Erro ao buscar usuários: " + e.message, true); 
-            }
+            } catch (e) { showToast(`Erro ao buscar usuários: ${e.message}`, true); }
         });
 
+        // 7. REGISTRAR DOAÇÃO (COM LOOP E QLIK RELOAD)
         document.getElementById('formDonation').addEventListener('submit', async (e) => {
             e.preventDefault();
             const donationOptId = document.getElementById('selectOpt').value;
             const userId = document.getElementById('selectUser').value;
-            const quant = parseInt(document.getElementById('inputQuant').value);
-            const btn = e.target.querySelector('button');
+            const quantTyped = parseInt(document.getElementById('inputQuant').value);
+            const btn = document.getElementById('btnDonation');
             const originalText = btn.innerHTML;
-            
-            btn.disabled = true;
-            let success = true;
-            let lastErrorMessage = "";
 
-            for (let i = 1; i <= quant; i++) {
-                btn.innerHTML = `Enviando ${i}/${quant}...`;
+            btn.disabled = true;
+            let successCount = 0;
+            let lastError = "";
+
+            for (let i = 1; i <= quantTyped; i++) {
+                btn.innerHTML = `Processando ${i} de ${quantTyped}...`;
                 try {
                     const res = await fetch(`${API_URL}/donation/create`, {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({ donation_opt_id: donationOptId, user_id: userId, quant: 1 })
+                        body: JSON.stringify({ donation_opt_id: donationOptId, user_id: userId, quant: quantTyped })
                     });
-                    if (!res.ok) {
-                        success = false;
-                        lastErrorMessage = "Status " + res.status;
-                        break;
-                    }
-                } catch (e) { 
-                    success = false; 
-                    lastErrorMessage = "Sem conexão com API";
-                    break; 
-                }
+                    if (res.ok) successCount++;
+                    else { lastError = `Erro ${res.status}`; break; }
+                } catch (err) { lastError = "Erro de Conexão"; break; }
             }
 
-            if (success) {
-                btn.innerHTML = "Atualizando Dashboard...";
+            if (successCount === quantTyped) {
+                btn.innerHTML = "Atualizando Qlik Cloud...";
                 await triggerQlikReload();
-                showToast("Doação registrada com sucesso!");
+                showToast(`Sucesso! ${successCount} registros feitos. Qlik Cloud atualizado.`);
                 e.target.reset();
                 document.getElementById('selectUser').disabled = true;
-            } else { 
-                showToast("Falha no registro: " + lastErrorMessage, true); 
+            } else {
+                showToast(`Falha no registro: ${lastError}`, true);
             }
             btn.disabled = false;
             btn.innerHTML = originalText;
         });
 
+        // 8. CADASTRAR USUÁRIO
         document.getElementById('formUser').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
                 const res = await fetch(`${API_URL}/user/create`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ user_name: document.getElementById('newUserName').value, team_id: document.getElementById('selectTeamForUser').value })
+                    body: JSON.stringify({ 
+                        user_name: document.getElementById('newUserName').value, 
+                        team_id: document.getElementById('selectTeamForUser').value 
+                    })
                 });
-                if (!res.ok) throw new Error("Status " + res.status);
+                if (!res.ok) throw new Error(`Status ${res.status}`);
                 const json = await res.json();
                 if (json.ok) {
-                    showToast("Usuário criado com sucesso!");
+                    showToast("Usuário cadastrado! Pronto para doar.");
                     e.target.reset();
                     switchTab('donation');
-                } else {
-                    showToast("Erro: " + json.message, true);
-                }
-            } catch (e) { 
-                showToast("Erro ao criar usuário: " + e.message, true); 
-            }
+                } else { showToast(json.message, true); }
+            } catch (e) { showToast(`Erro ao criar usuário: ${e.message}`, true); }
         });
 
-        window.onload = fetchData;
+        window.onload = () => {
+            fetchData();
+            createSnow();
+        };
     </script>
 </body>
 </html>
