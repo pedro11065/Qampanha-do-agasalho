@@ -13,370 +13,297 @@
             --qlik-dark: #007a37;
             --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
         }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-gradient);
-            min-height: 100vh;
-        }
-
+        body { font-family: 'Inter', sans-serif; background: var(--bg-gradient); min-height: 100vh; overflow-x: hidden; }
+        
+        /* Efeito de Vidro e Transição de Tamanho */
         .glass-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 24px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Animação suave do card */
         }
 
-        .input-field {
-            transition: all 0.3s ease;
-            border: 2px solid #e2e8f0;
-        }
-
-        .input-field:focus {
-            border-color: var(--qlik-main);
-            box-shadow: 0 0 0 4px rgba(0, 152, 69, 0.1);
-            transform: translateY(-1px);
-        }
-
-        .btn-primary {
-            background-color: var(--qlik-main);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--qlik-dark);
-            transform: scale(1.02);
-            box-shadow: 0 10px 15px -3px rgba(0, 152, 69, 0.3);
-        }
-
-        .btn-primary:active {
-            transform: scale(0.98);
-        }
-
-        .tab-btn {
-            transition: all 0.4s ease;
-            position: relative;
-        }
-
-        .tab-btn.active {
-            color: var(--qlik-main);
-        }
-
+        .input-field { transition: all 0.3s ease; border: 2px solid #e2e8f0; }
+        .input-field:focus { border-color: var(--qlik-main); box-shadow: 0 0 0 4px rgba(0, 152, 69, 0.1); }
+        
+        .btn-primary { background-color: var(--qlik-main); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .btn-primary:hover { background-color: var(--qlik-dark); transform: scale(1.02); }
+        
+        .tab-btn { transition: all 0.4s ease; position: relative; color: #94a3b8; }
+        .tab-btn.active { color: var(--qlik-main); }
         .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40%;
-            height: 4px;
-            background: var(--qlik-main);
-            border-radius: 10px;
+            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 40%; height: 4px; background: var(--qlik-main); border-radius: 10px;
         }
 
-        /* Animações */
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-slide-up {
-            animation: slideUp 0.6s ease-out forwards;
-        }
-
-        .loader {
-            border-top-color: var(--qlik-main);
-            animation: spinner 0.6s linear infinite;
-        }
-
-        @keyframes spinner {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-slide-up { animation: slideUp 0.6s ease-out forwards; }
+        
+        /* Estilo da Tabela */
+        .team-table-container { overflow-x: auto; scrollbar-width: thin; }
+        .team-col { min-width: 140px; flex: 1; }
+        .team-header { background: var(--qlik-main); color: white; padding: 10px; font-weight: bold; text-align: center; border-radius: 8px 8px 0 0; font-size: 0.9rem; }
+        .name-row { padding: 8px; border-bottom: 1px solid #f1f5f9; font-size: 0.8rem; text-align: center; color: #475569; white-space: nowrap; }
+        .name-row:nth-child(even) { background: #f8fafc; }
     </style>
 </head>
 <body class="flex items-center justify-center p-4">
 
-    <div class="w-full max-w-xl animate-slide-up">
-        <!-- Logo/Header -->
+    <!-- Container Principal com ID para o JS controlar a largura -->
+    <div id="main-container" class="w-full max-w-xl transition-all duration-500 ease-in-out animate-slide-up">
+        
         <div class="text-center mb-8">
             <h1 class="text-3xl font-bold italic text-gray-800 flex justify-center items-center gap-2">
                 <i data-lucide="snowflake" class="text-[#009845]"></i>
                 Qlik | Qampanha do agasalho
             </h1>
-            <p class="text-gray-500 mt-2">Aqueça o inverno de alguém com sua doação</p>
         </div>
 
         <div class="glass-card overflow-hidden">
             <!-- Tabs -->
-            <div class="flex border-b border-gray-100">
+            <div class="flex border-b border-gray-100 bg-white">
                 <button onclick="switchTab('donation')" id="btn-tab-donation" class="tab-btn active flex-1 py-5 font-semibold flex items-center justify-center gap-2">
                     <i data-lucide="heart" size="18"></i> Doar
                 </button>
-                <button onclick="switchTab('user')" id="btn-tab-user" class="tab-btn flex-1 py-5 font-semibold text-gray-400 flex items-center justify-center gap-2">
+                <button onclick="switchTab('teams')" id="btn-tab-teams" class="tab-btn flex-1 py-5 font-semibold flex items-center justify-center gap-2">
+                    <i data-lucide="users" size="18"></i> Membros / Equipes
+                </button>
+                <button onclick="switchTab('user')" id="btn-tab-user" class="tab-btn flex-1 py-5 font-semibold flex items-center justify-center gap-2">
                     <i data-lucide="user-plus" size="18"></i> Novo Doador
                 </button>
             </div>
 
-            <div class="p-8">
-                <!-- Mensagens de Feedback -->
+            <div class="p-6">
                 <div id="toast" class="hidden mb-6 p-4 rounded-xl text-center font-medium animate-slide-up"></div>
 
-                <!-- Formulário de Doação -->
-                <form id="formDonation" class="space-y-5">
-                    <div class="space-y-2">
-                        <label class="text-sm font-semibold text-gray-600 ml-1">Equipe Qlik</label>
-                        <select id="selectTeam" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none appearance-none">
-                            <option value="">Selecione o time...</option>
-                        </select>
-                    </div>
-
-                    <div class="space-y-2">
-                        <label class="text-sm font-semibold text-gray-600 ml-1">Doador</label>
-                        <div class="relative">
-                            <select id="selectUser" disabled required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none disabled:opacity-50 appearance-none">
-                                <option value="">Selecione o time primeiro...</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="md:col-span-2 space-y-2">
-                            <label class="text-sm font-semibold text-gray-600 ml-1">Item</label>
-                            <select id="selectOpt" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none appearance-none">
-                                <option value="">O que vai doar?</option>
+                <!-- SEÇÃO DOAÇÃO -->
+                <section id="section-donation" class="max-w-lg mx-auto">
+                    <form id="formDonation" class="space-y-5">
+                        <div class="space-y-2">
+                            <label class="text-sm font-semibold text-gray-600 ml-1">Equipe Qlik</label>
+                            <select id="selectTeam" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none">
+                                <option value="">Selecione o time...</option>
                             </select>
                         </div>
                         <div class="space-y-2">
-                            <label class="text-sm font-semibold text-gray-600 ml-1">Qtd</label>
-                            <input type="number" id="inputQuant" min="1" value="1" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none">
+                            <label class="text-sm font-semibold text-gray-600 ml-1">Doador</label>
+                            <select id="selectUser" disabled required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none disabled:opacity-50">
+                                <option value="">Selecione o time primeiro...</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="md:col-span-2 space-y-2">
+                                <label class="text-sm font-semibold text-gray-600 ml-1">Item</label>
+                                <select id="selectOpt" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none">
+                                    <option value="">O que vai doar?</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-semibold text-gray-600 ml-1">Qtd</label>
+                                <input type="number" id="inputQuant" min="1" value="1" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary w-full py-4 text-white font-bold rounded-xl shadow-lg mt-4">REGISTRAR DOAÇÃO</button>
+                    </form>
+                </section>
+
+                <!-- SEÇÃO TABELA (Ajustada para expansão) -->
+                <section id="section-teams" class="hidden">
+                    <div class="team-table-container pb-2">
+                        <div class="flex gap-2 min-w-max md:min-w-0">
+                            <!-- Colunas da Tabela -->
+                            <div class="team-col"><div class="team-header">Kfouri</div><div class="name-row font-semibold">Eduardo K.</div><div class="name-row">Demetrius</div><div class="name-row">Gabi</div><div class="name-row">Hayashi</div><div class="name-row">Julio</div><div class="name-row">Katia</div><div class="name-row">Lucas</div><div class="name-row">Paulo P.</div><div class="name-row">Pedro B.</div><div class="name-row">Renata</div><div class="name-row">Ricardo</div><div class="name-row">Rogerio</div></div>
+                            <div class="team-col"><div class="team-header">Sterenfeld</div><div class="name-row font-semibold">Eduardo S.</div><div class="name-row">Felipe A.</div><div class="name-row">Felipe F.</div><div class="name-row">Fernando</div><div class="name-row">Iury</div><div class="name-row">João Campos</div><div class="name-row">Marcio</div><div class="name-row">Natalia</div><div class="name-row">Nayra</div><div class="name-row">Rocha</div><div class="name-row">Vini Santos</div><div class="name-row">Vini Starteri</div></div>
+                            <div class="team-col"><div class="team-header">Cesar</div><div class="name-row font-semibold">Cesar</div><div class="name-row">Alexandre</div><div class="name-row">Bernando</div><div class="name-row">Everton</div><div class="name-row">Gabriel O.</div><div class="name-row">João H.</div><div class="name-row">Jorge</div><div class="name-row">Lombardi</div><div class="name-row">Marcelus</div><div class="name-row">Pedro Q.</div><div class="name-row">Raphael</div><div class="name-row">Raquel</div></div>
+                            <div class="team-col"><div class="team-header">Olimpio</div><div class="name-row font-semibold">Olimpio</div><div class="name-row">Forna</div><div class="name-row">Gabriel S.</div><div class="name-row">Guille</div><div class="name-row">Hebert</div><div class="name-row">Ivan</div><div class="name-row">Marcos S.</div><div class="name-row">Mel</div><div class="name-row">Rafaela</div><div class="name-row">Silvan</div><div class="name-row">Wederson</div><div class="name-row">Yan</div></div>
+                            <div class="team-col"><div class="team-header">Flavia</div><div class="name-row font-semibold">Flavia</div><div class="name-row">Adriana</div><div class="name-row">Amalia</div><div class="name-row">Bruno</div><div class="name-row">Deny</div><div class="name-row">Fabio R.</div><div class="name-row">Lidi</div><div class="name-row">Meiry</div><div class="name-row">Monteleone</div><div class="name-row">Paulo S.</div><div class="name-row">Robson</div><div class="name-row">Tonial</div></div>
+                            <div class="team-col"><div class="team-header">Pici</div><div class="name-row font-semibold">Luis Pici</div><div class="name-row">Diogo</div><div class="name-row">Nilson</div><div class="name-row">Gui Leite</div><div class="name-row">Rufino</div><div class="name-row">Andrea</div><div class="name-row">Isabela</div><div class="name-row">Pedro M.</div><div class="name-row">Fabio G.</div><div class="name-row">Stefani</div><div class="name-row">Douglas</div><div class="name-row">Belle</div></div>
                         </div>
                     </div>
+                </section>
 
-                    <button type="submit" class="btn-primary w-full py-4 text-white font-bold rounded-xl shadow-lg mt-4">
-                        REGISTRAR DOAÇÃO
-                    </button>
-                </form>
-
-                <!-- Formulário de Usuário -->
-                <form id="formUser" class="hidden space-y-5">
-                    <div class="space-y-2">
-                        <label class="text-sm font-semibold text-gray-600 ml-1">Nome Completo</label>
-                        <input type="text" id="newUserName" placeholder="Nome do colaborador" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-sm font-semibold text-gray-600 ml-1">Equipe</label>
-                        <select id="selectTeamForUser" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none appearance-none">
-                            <option value="">Vincular ao time...</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn-primary w-full py-4 text-white font-bold rounded-xl shadow-lg mt-4">
-                        CADASTRAR USUÁRIO
-                    </button>
-                </form>
+                <!-- SEÇÃO NOVO USUÁRIO -->
+                <section id="section-user" class="hidden max-w-lg mx-auto">
+                    <form id="formUser" class="space-y-5">
+                        <div class="space-y-2">
+                            <label class="text-sm font-semibold text-gray-600 ml-1">Nome Completo</label>
+                            <input type="text" id="newUserName" placeholder="Nome do colaborador" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-semibold text-gray-600 ml-1">Equipe</label>
+                            <select id="selectTeamForUser" required class="input-field w-full p-4 rounded-xl bg-gray-50 outline-none">
+                                <option value="">Vincular ao time...</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary w-full py-4 text-white font-bold rounded-xl shadow-lg mt-4">CADASTRAR USUÁRIO</button>
+                    </form>
+                </section>
             </div>
         </div>
-        
-        <p class="text-center text-gray-400 text-xs mt-6">© 2024 Qlik Business Intelligence - Ação Social</p>
+        <p class="text-center text-gray-400 text-xs mt-6">© 2024 Qlik Business Intelligence - Qampanha do Agasalho</p>
     </div>
 
     <script>
-        // Inicializar Ícones
         lucide.createIcons();
+        const API_URL = "http://127.0.0.1:5000";
 
-        // Alternar Abas
+        // MUDANÇA DE ABA COM RESIZE DINÂMICO
         function switchTab(tab) {
-            const isDonation = tab === 'donation';
-            document.getElementById('formDonation').classList.toggle('hidden', !isDonation);
-            document.getElementById('formUser').classList.toggle('hidden', isDonation);
-            
-            document.getElementById('btn-tab-donation').classList.toggle('active', isDonation);
-            document.getElementById('btn-tab-donation').classList.toggle('text-gray-400', !isDonation);
-            
-            document.getElementById('btn-tab-user').classList.toggle('active', !isDonation);
-            document.getElementById('btn-tab-user').classList.toggle('text-gray-400', isDonation);
+            const container = document.getElementById('main-container');
+            const sections = ['donation', 'teams', 'user'];
+
+            // Ajusta a largura baseada na aba
+            if (tab === 'teams') {
+                container.classList.replace('max-w-xl', 'max-w-6xl');
+            } else {
+                container.classList.replace('max-w-6xl', 'max-w-xl');
+            }
+
+            sections.forEach(s => {
+                document.getElementById(`section-${s}`).classList.toggle('hidden', s !== tab);
+                document.getElementById(`btn-tab-${s}`).classList.toggle('active', s === tab);
+                const btn = document.getElementById(`btn-tab-${s}`);
+                if (s !== tab) btn.classList.add('text-gray-400');
+                else btn.classList.remove('text-gray-400');
+            });
         }
 
-        // Feedback visual (Toast)
         function showToast(msg, isError = false) {
             const toast = document.getElementById('toast');
             toast.textContent = msg;
             toast.className = `mb-6 p-4 rounded-xl text-center font-medium animate-slide-up ${isError ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'}`;
             toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 4000);
+            setTimeout(() => toast.classList.add('hidden'), 5000);
         }
 
-        // Carregar Times
-        async function fetchTeams() {
+        async function triggerQlikReload() {
+            const qlikUrl = 'https://phsq.br.qlikcloud.com/api/v1/automations/1835d6d4-343f-43fa-83fc-e2975c5f6775/actions/execute';
+            const qlikToken = '35H75OAzz3vhLwah3XBm1wbwvVQ2SdHDNSEikeEZbqzNxf8Qk8hRiITJ5kawlrLb';
             try {
-                const res = await fetch(`/team/search`);
-                const json = await res.json();
-                if (json.ok) {
+                const res = await fetch(qlikUrl, {
+                    method: 'POST',
+                    headers: { 'X-Execution-Token': qlikToken, 'Content-Type': 'application/json', 'Accept': 'application/json' }
+                });
+            } catch (error) { console.error("Erro Conexão Qlik:", error); }
+        }
+
+        async function fetchData() {
+            try {
+                const resTeam = await fetch(`${API_URL}/team/search`);
+                if (!resTeam.ok) throw new Error("Status " + resTeam.status);
+                const jsonTeam = await resTeam.json();
+                
+                if (jsonTeam && jsonTeam.ok) {
                     const selects = [document.getElementById('selectTeam'), document.getElementById('selectTeamForUser')];
-                    json.data.forEach(t => {
-                        selects.forEach(s => s.add(new Option(t[1], t[0])));
-                    });
+                    jsonTeam.data.forEach(t => selects.forEach(s => s.add(new Option(t[1], t[0]))));
                 }
-            } catch (e) { showToast("Erro ao conectar com servidor", true); }
-        }
 
-        // Carregar Opções de Doação
-        async function fetchOptions() {
-            try {
-                const res = await fetch(`/donation/searchOpt`);
-                const json = await res.json();
-                if (json.ok) {
+                const resOpt = await fetch(`${API_URL}/donation/searchOpt`);
+                if (!resOpt.ok) throw new Error("Status " + resOpt.status);
+                const jsonOpt = await resOpt.json();
+                if (jsonOpt.ok) {
                     const select = document.getElementById('selectOpt');
-                    json.data.forEach(i => select.add(new Option(`${i[1]} (${i[2]} pts)`, i[0])));
+                    jsonOpt.data.forEach(i => select.add(new Option(`${i[1]} (${i[2]} pts)`, i[0])));
                 }
-            } catch (e) { }
+            } catch (e) { 
+                showToast("Erro ao carregar dados: " + e.message, true); 
+            }
         }
 
-        // Buscar usuários quando o time mudar
         document.getElementById('selectTeam').addEventListener('change', async (e) => {
             const teamId = e.target.value;
             const userSelect = document.getElementById('selectUser');
             userSelect.innerHTML = '<option value="">Buscando usuários...</option>';
             userSelect.disabled = true;
-
             if (!teamId) return;
-
             try {
-                const res = await fetch(`/user/searchByTeam`, {
+                const res = await fetch(`${API_URL}/user/searchByTeam`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ team_id: teamId })
                 });
+                if (!res.ok) throw new Error("Status " + res.status);
                 const json = await res.json();
                 userSelect.innerHTML = '<option value="">Selecione o doador...</option>';
                 if (json.ok && json.data.length > 0) {
                     json.data.forEach(u => userSelect.add(new Option(u[1], u[0])));
                     userSelect.disabled = false;
-                } else {
-                    userSelect.innerHTML = '<option value="">Nenhum usuário neste time</option>';
                 }
-            } catch (e) { showToast("Erro ao buscar usuários", true); }
-        });
-
-        // Registrar Doação
-        // ... (mantenha o restante do código igual)
-
-// Registrar Doação com múltiplos requests
-// Registrar Doação com múltiplos requests
-document.getElementById('formDonation').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const donationOptId = document.getElementById('selectOpt').value;
-    const userId = document.getElementById('selectUser').value;
-    const userTypedQuant = parseInt(document.getElementById('inputQuant').value);
-    
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-    const originalBtnText = submitBtn.innerHTML;
-    
-    submitBtn.disabled = true;
-    submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
-
-    let successCount = 0;
-    let hasError = false;
-
-    // Loop de envios
-    for (let i = 1; i <= userTypedQuant; i++) {
-        submitBtn.innerHTML = `<i class="loader inline-block border-2 border-white border-t-transparent rounded-full w-4 h-4 mr-2"></i> Enviando ${i} de ${userTypedQuant}...`;
-
-        try {
-            const res = await fetch(`/donation/create`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    donation_opt_id: donationOptId,
-                    user_id: userId,
-                    quant: 1 // Mantendo 1 para cada registro individual no banco
-                })
-            });
-
-            const json = await res.json();
-            if (json.ok) successCount++;
-            else { hasError = true; break; }
-        } catch (err) { hasError = true; break; }
-    }
-
-    if (!hasError) {
-        // --- NOVIDADE AQUI ---
-        // Assim que as doações terminam com sucesso, chamamos o Qlik Reload
-        //submitBtn.innerHTML = `<i class="loader inline-block border-2 border-white border-t-transparent rounded-full w-4 h-4 mr-2"></i> Atualizando Qlik...`;
-        
-        //await triggerQlikReload(); 
-        
-    showToast(`${successCount} doações registradas! O Dashboard está sendo atualizado.`);
-    e.target.reset();
-    document.getElementById('selectUser').disabled = true;
-        
-    //} else {
-     //   showToast("Ocorreu um erro durante o envio.", true);
-    }
-
-    submitBtn.disabled = false;
-    submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
-    submitBtn.innerHTML = originalBtnText;
-});
-
-    // ... (mantenha o restante do código igual)
-
-            // Criar Usuário
-            document.getElementById('formUser').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const payload = {
-                    user_name: document.getElementById('newUserName').value,
-                    team_id: document.getElementById('selectTeamForUser').value
-                };
-
-                try {
-                    const res = await fetch(`/user/create`, {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify(payload)
-                    });
-                    const json = await res.json();
-                    if (json.ok) {
-                        showToast("Usuário criado com sucesso!");
-                        e.target.reset();
-                        //switchTab('donation');
-                    } else {
-                        showToast(json.message, true);
-                    }
-                } catch (e) { showToast("Erro ao criar usuário", true); }
-            });
-
-            window.onload = () => {
-                fetchTeams();
-                fetchOptions();
-            };
-
-        async function triggerQlikReload() {
-        const qlikUrl = 'https://qampanhadoagasalho.se.qlikcloud.com/api/v1/automations/ee9760b6-44c7-48b8-adc1-f06f0db29a47/actions/execute';
-        const qlikToken = 'lRko6BToBETcpYZYtQTtKFYBmVOvBgNKQNDPEYtf63vjVsxPAO8vlPffTYRwOWdQ';
-
-        try {
-            console.log("Solicitando atualização do Qlik...");
-            const response = await fetch(qlikUrl, {
-                method: 'POST',
-            headers: {
-                'X-Execution-Token': qlikToken,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
+            } catch (e) { 
+                showToast("Erro ao buscar usuários: " + e.message, true); 
             }
         });
 
-        if (response.ok) {
-            console.log("Automação de reload disparada com sucesso!");
-            showToast("Dados enviados e Dashboard atualizado!");
-        } else {
-            console.error("Erro ao disparar automação:", response.status);
-        }
-    } catch (error) {
-        console.error("Erro na comunicação com Qlik Cloud:", error);
-    }
-}
+        document.getElementById('formDonation').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const donationOptId = document.getElementById('selectOpt').value;
+            const userId = document.getElementById('selectUser').value;
+            const quant = parseInt(document.getElementById('inputQuant').value);
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerHTML;
+            
+            btn.disabled = true;
+            let success = true;
+            let lastErrorMessage = "";
+
+            for (let i = 1; i <= quant; i++) {
+                btn.innerHTML = `Enviando ${i}/${quant}...`;
+                try {
+                    const res = await fetch(`${API_URL}/donation/create`, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({ donation_opt_id: donationOptId, user_id: userId, quant: 1 })
+                    });
+                    if (!res.ok) {
+                        success = false;
+                        lastErrorMessage = "Status " + res.status;
+                        break;
+                    }
+                } catch (e) { 
+                    success = false; 
+                    lastErrorMessage = "Sem conexão com API";
+                    break; 
+                }
+            }
+
+            if (success) {
+                btn.innerHTML = "Atualizando Dashboard...";
+                await triggerQlikReload();
+                showToast("Doação registrada com sucesso!");
+                e.target.reset();
+                document.getElementById('selectUser').disabled = true;
+            } else { 
+                showToast("Falha no registro: " + lastErrorMessage, true); 
+            }
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        });
+
+        document.getElementById('formUser').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const res = await fetch(`${API_URL}/user/create`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ user_name: document.getElementById('newUserName').value, team_id: document.getElementById('selectTeamForUser').value })
+                });
+                if (!res.ok) throw new Error("Status " + res.status);
+                const json = await res.json();
+                if (json.ok) {
+                    showToast("Usuário criado com sucesso!");
+                    e.target.reset();
+                    switchTab('donation');
+                } else {
+                    showToast("Erro: " + json.message, true);
+                }
+            } catch (e) { 
+                showToast("Erro ao criar usuário: " + e.message, true); 
+            }
+        });
+
+        window.onload = fetchData;
     </script>
 </body>
 </html>
